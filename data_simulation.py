@@ -80,7 +80,7 @@ df = pd.DataFrame({
     'Waist_Hip_Ratio': np.round(np.random.normal(90, 10, n) / np.random.normal(100, 10, n), 2)
 })
 
-# Preview
+# Previewoc
 print(df.head())
 
 # Save to CSV
