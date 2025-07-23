@@ -16,17 +16,13 @@ def index():
 
     if request.method == "POST":
         try:
-            # Collect and typecast input data
             input_data = {}
             for feature in feature_names:
                 raw_val = request.form.get(feature)
-
-                if raw_val is None or raw_val == "":
-                    input_data[feature] = 0  # or use None/defaults if applicable
-                elif raw_val.replace(".", "", 1).isdigit() or raw_val.isdigit():
+                try:
                     input_data[feature] = float(raw_val)
-                else:
-                    input_data[feature] = raw_val
+                except (ValueError, TypeError):
+                    input_data[feature] = 0.0
 
             input_df = pd.DataFrame([input_data])
 
@@ -59,6 +55,7 @@ def index():
             print(f"Error during prediction: {e}")
             prediction = "Error"
             recommendations = ["There was a problem processing your request. Please try again."]
+            
 
     return render_template("index.html", features=feature_names, prediction=prediction, recommendations=recommendations)
 
