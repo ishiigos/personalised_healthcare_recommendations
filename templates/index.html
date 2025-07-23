@@ -6,19 +6,21 @@
     <style>
         body {
             margin: 0;
-            height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: url("{{ url_for('static', filename='medical-bg.jpg') }}") no-repeat center center fixed;
+            background: url("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.com%2Ffree-photos-vectors%2Fmedical-wallpaper&psig=AOvVaw28f__CVPLgMeppqRjzXH6d&ust=1753325117741000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLDB8Zr70Y4DFQAAAAAdAAAAABAE") no-repeat center center fixed;
             background-size: cover;
+        }
+
+        .wrapper {
             display: flex;
-            align-items: center;   /* Vertical center */
-            justify-content: flex-start;  /* Align left */
+            align-items: center;
+            min-height: 100vh;
         }
 
         .overlay {
             background-color: rgba(255, 255, 255, 0.94);
             padding: 40px;
-            margin-left: 20%;
+            margin: 50px 0 50px 200px; /* 200px from left, 50px top/bottom */
             width: 480px;
             border-radius: 12px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
@@ -78,27 +80,29 @@
     </style>
 </head>
 <body>
-    <div class="overlay">
-        <h1>Health Risk Prediction</h1>
-        <form method="POST">
-            {% for feature in features %}
-                <label>{{ feature }}</label>
-                <input type="number" step="any" name="{{ feature }}" required>
-            {% endfor %}
-            <button type="submit">Predict</button>
-        </form>
-
-        {% if prediction %}
-        <div class="result">
-            <h2>Predicted Risk: {{ prediction }}</h2>
-            <h3>Recommendations:</h3>
-            <ul>
-                {% for item in recommendations %}
-                    <li>{{ item }}</li>
+    <div class="wrapper">
+        <div class="overlay">
+            <h1>Health Risk Prediction</h1>
+            <form method="POST">
+                {% for feature in features %}
+                    <label>{{ feature }}</label>
+                    <input type="number" step="any" name="{{ feature }}">
                 {% endfor %}
-            </ul>
+                <button type="submit">Predict</button>
+            </form>
+
+            {% if prediction %}
+            <div class="result">
+                <h2>Predicted Risk: {{ prediction }}</h2>
+                <h3>Recommendations:</h3>
+                <ul>
+                    {% for item in recommendations %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
         </div>
-        {% endif %}
     </div>
 </body>
 </html>
